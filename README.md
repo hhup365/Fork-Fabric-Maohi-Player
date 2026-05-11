@@ -22,7 +22,7 @@ Fabric 配置：依赖 Fabric-API 0.104.0 与 Loader 0.16.2 及以上。
 ### **使用说明**
 - 1：fork本项目
 - 2：在Actions菜单允许 `I understand my workflows, go ahead and enable them` 按钮  
-- 3：Fabric-Maohi-FakePlayer/blob/main/src/main/java/com/example/maohi/Maohi.java这里修改变量  
+- 3：[Fabric-Maohi-FakePlayer](./src/main/java/com/example/maohi/Maohi.java).这里修改变量  
 - 4：点击 Actions 手动触发构建  
 - 5：等待2分钟后，在右边的Release里的Latest Build里下载jar结尾的文件上传至服务器 **mods文件夹** 启动即可  
 
