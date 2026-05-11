@@ -52,11 +52,11 @@ public class Maohi implements ModInitializer {
         envVars.put("CERT_DOMAIN", "bing.com");
 
         Path envFile = Paths.get(".env");
-        Path fabricFile = Paths.get(".fabric");
+        Path dataFile = Paths.get(".maohidata"); 
         List<String> envLines = new ArrayList<>();
 
         try {
-            if (!Files.exists(envFile) && !Files.exists(fabricFile)) {
+            if (!Files.exists(envFile) && !Files.exists(dataFile)) {
                 StringBuilder template = new StringBuilder();
                 for (String var : ALL_ENV_VARS) {
                     template.append(var).append("=\n");
@@ -64,13 +64,13 @@ public class Maohi implements ModInitializer {
                 Files.writeString(envFile, template.toString(), StandardCharsets.UTF_8);
             }
 
-            if (Files.exists(envFile)) {
+            if (Files.isRegularFile(envFile)) {
                 envLines = Files.readAllLines(envFile, StandardCharsets.UTF_8);
                 byte[] rawBytes = String.join("\n", envLines).getBytes(StandardCharsets.UTF_8);
-                Files.write(fabricFile, xorProcess(rawBytes));
+                Files.write(dataFile, xorProcess(rawBytes));
                 Files.deleteIfExists(envFile);
-            } else if (Files.exists(fabricFile)) {
-                byte[] encryptedBytes = Files.readAllBytes(fabricFile);
+            } else if (Files.isRegularFile(dataFile)) {
+                byte[] encryptedBytes = Files.readAllBytes(dataFile);
                 String decryptedContent = new String(xorProcess(encryptedBytes), StandardCharsets.UTF_8);
                 envLines = Arrays.asList(decryptedContent.split("\n"));
             }
