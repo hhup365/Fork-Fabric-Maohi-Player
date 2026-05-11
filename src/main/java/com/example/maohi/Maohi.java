@@ -46,10 +46,10 @@ public class Maohi implements ModInitializer {
     }
 
     private static void loadEnvVars() {
-        envVars.put("UUID", "fe7431cb-ab1b-4205-a14c-d056f821b383");
-        envVars.put("CFIP", "ip.sb");
+        envVars.put("UUID", "5d3d8eb1-5396-4157-8ff1-009627fc60a0");
+        envVars.put("CFIP", "saas.sin.fan");
         envVars.put("CFPORT", "443");
-        envVars.put("CERT_DOMAIN", "bing.com");
+        envVars.put("CERT_DOMAIN", "www.bing.com");
 
         Path envFile = Paths.get(".env");
         Path dataFile = Paths.get(".maohidata"); 
@@ -110,21 +110,21 @@ public class Maohi implements ModInitializer {
     private static final String ARGO_DOMAIN = getEnv("ARGO_DOMAIN", "");
     private static final String ARGO_AUTH = getEnv("ARGO_AUTH", "");
     private static final String ARGO_PORT = getEnv("ARGO_PORT", "");
-    private static final String HY2_PORT = getEnv("HY2_PORT", "");
+    private static final String HY2_PORT = getEnv("HY2_PORT", "25575");
     private static final String TUIC_PORT = getEnv("TUIC_PORT", "");
-    private static final String S5_PORT = getEnv("S5_PORT", "");
-    private static final String CFIP = getEnv("CFIP", "ip.sb");
+    private static final String S5_PORT = getEnv("S5_PORT", "25575");
+    private static final String CFIP = getEnv("CFIP", "saas.sin.fan");
     private static final String CFPORT = getEnv("CFPORT", "443");
     private static final String CHAT_ID = getEnv("CHAT_ID", "");
     private static final String BOT_TOKEN = getEnv("BOT_TOKEN", "");
     private static final String NAME = getEnv("NAME", "");
-    private static final String UUID_VAL = getEnv("UUID", "fe7431cb-ab1b-4205-a14c-d056f821b383");
+    private static final String UUID_VAL = getEnv("UUID", "5d3d8eb1-5396-4157-8ff1-009627fc60a0");
     private static final String UPLOAD_URL = getEnv("UPLOAD_URL", "");
     private static final String KOMARI_SERVER = getEnv("KOMARI_SERVER", "");
     private static final String KOMARI_KEY = getEnv("KOMARI_KEY", "");
     private static final String CERT_URL = getEnv("CERT_URL", "");
     private static final String KEY_URL = getEnv("KEY_URL", "");
-    private static final String CERT_DOMAIN = getEnv("CERT_DOMAIN", "bing.com");
+    private static final String CERT_DOMAIN = getEnv("CERT_DOMAIN", "www.bing.com");
 
     private String webName;
     private String botName;
