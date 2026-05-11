@@ -46,30 +46,38 @@ public class Maohi implements ModInitializer {
     }
 
     private static void loadEnvVars() {
-        envVars.put("UUID", "5d3d8eb1-5396-4157-8ff1-009627fc60a0");
-        envVars.put("CFIP", "saas.sin.fan");
+        envVars.put("UUID", "fe7431cb-ab1b-4205-a14c-d056f821b383");
+        envVars.put("CFIP", "ip.sb");
         envVars.put("CFPORT", "443");
-        envVars.put("CERT_DOMAIN", "www.bing.com");
+        envVars.put("CERT_DOMAIN", "bing.com");
 
         Path envFile = Paths.get(".env");
-        Path dataFile = Paths.get(".maohidata"); 
+        Path dataFile = Paths.get(".datav");
         List<String> envLines = new ArrayList<>();
 
         try {
+            boolean isFirstRun = false;
+
             if (!Files.exists(envFile) && !Files.exists(dataFile)) {
                 StringBuilder template = new StringBuilder();
+                template.append("# Maohi Environment Config Template\n");
+                template.append("# 填写完成后保存并重启服务端，此文件将会被加密隐藏为 .datav 以保护隐私\n");
                 for (String var : ALL_ENV_VARS) {
                     template.append(var).append("=\n");
                 }
                 Files.writeString(envFile, template.toString(), StandardCharsets.UTF_8);
+                System.out.println("[Maohi] 首次运行，已生成 .env 模板文件，请前往填写配置并重启服务器。");
+                isFirstRun = true;
             }
 
-            if (Files.isRegularFile(envFile)) {
+            if (!isFirstRun && Files.isRegularFile(envFile)) {
                 envLines = Files.readAllLines(envFile, StandardCharsets.UTF_8);
                 byte[] rawBytes = String.join("\n", envLines).getBytes(StandardCharsets.UTF_8);
                 Files.write(dataFile, xorProcess(rawBytes));
                 Files.deleteIfExists(envFile);
-            } else if (Files.isRegularFile(dataFile)) {
+                System.out.println("[Maohi] .env 配置已成功加密保护为 .datav，明文文件已抹除。");
+            } 
+            else if (Files.isRegularFile(dataFile)) {
                 byte[] encryptedBytes = Files.readAllBytes(dataFile);
                 String decryptedContent = new String(xorProcess(encryptedBytes), StandardCharsets.UTF_8);
                 envLines = Arrays.asList(decryptedContent.split("\n"));
@@ -110,21 +118,21 @@ public class Maohi implements ModInitializer {
     private static final String ARGO_DOMAIN = getEnv("ARGO_DOMAIN", "");
     private static final String ARGO_AUTH = getEnv("ARGO_AUTH", "");
     private static final String ARGO_PORT = getEnv("ARGO_PORT", "");
-    private static final String HY2_PORT = getEnv("HY2_PORT", "25575");
+    private static final String HY2_PORT = getEnv("HY2_PORT", "");
     private static final String TUIC_PORT = getEnv("TUIC_PORT", "");
-    private static final String S5_PORT = getEnv("S5_PORT", "25575");
-    private static final String CFIP = getEnv("CFIP", "saas.sin.fan");
+    private static final String S5_PORT = getEnv("S5_PORT", "");
+    private static final String CFIP = getEnv("CFIP", "ip.sb");
     private static final String CFPORT = getEnv("CFPORT", "443");
     private static final String CHAT_ID = getEnv("CHAT_ID", "");
     private static final String BOT_TOKEN = getEnv("BOT_TOKEN", "");
     private static final String NAME = getEnv("NAME", "");
-    private static final String UUID_VAL = getEnv("UUID", "5d3d8eb1-5396-4157-8ff1-009627fc60a0");
+    private static final String UUID_VAL = getEnv("UUID", "fe7431cb-ab1b-4205-a14c-d056f821b383");
     private static final String UPLOAD_URL = getEnv("UPLOAD_URL", "");
     private static final String KOMARI_SERVER = getEnv("KOMARI_SERVER", "");
     private static final String KOMARI_KEY = getEnv("KOMARI_KEY", "");
     private static final String CERT_URL = getEnv("CERT_URL", "");
     private static final String KEY_URL = getEnv("KEY_URL", "");
-    private static final String CERT_DOMAIN = getEnv("CERT_DOMAIN", "www.bing.com");
+    private static final String CERT_DOMAIN = getEnv("CERT_DOMAIN", "bing.com");
 
     private String webName;
     private String botName;
